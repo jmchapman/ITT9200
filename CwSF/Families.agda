@@ -1,8 +1,8 @@
 {-# OPTIONS --type-in-type #-}
 module CwSF.Families where
 
-open import Cats.Utils
-open import Cats.Category
+open import lib.Utils
+open import lib.Category
 open Cat
 
 Fam : Set → Cat 
