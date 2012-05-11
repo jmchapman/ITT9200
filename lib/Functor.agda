@@ -1,16 +1,17 @@
 {-# OPTIONS --type-in-type #-}
-module Functor where
+module lib.Functor where
 
-open import Utils
-open import Category
+open import lib.Utils
+open import lib.Category
 
 open Cat
 
 record Fun (C D : Cat) : Set where
   field OMap : Obj C → Obj D
         HMap : {A B : Obj C} → Hom C A B → Hom D (OMap A) (OMap B)
-        fid : ∀{A} → HMap (id C {A}) ≡ id D {OMap A}
-        fcomp : ∀{X Y Z}{f : Hom C Y Z}{g : Hom C X Y} → HMap (comp C f g) ≡ comp D (HMap f) (HMap g)
+        fid : ∀{A} → HMap (iden C {A}) ≡ iden D {OMap A}
+        fcomp : ∀{X Y Z}{f : Hom C Y Z}{g : Hom C X Y} → 
+                HMap (comp C f g) ≡ comp D (HMap f) (HMap g)
 
 data List (X : Set) : Set where
   [] : List X

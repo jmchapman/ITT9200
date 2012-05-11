@@ -1,5 +1,5 @@
+{-# OPTIONS --type-in-type #-}
 module lib.Utils where
-
 
 -- functions
 id : {X : Set} → X → X
@@ -31,8 +31,26 @@ cong f refl = refl
 cong2 : {X Y Z : Set}(f : X → Y → Z){x x' : X} → x ≡ x' → {y y' : Y} → y ≡ y' → f x y ≡ f x' y'
 cong2 f refl refl = refl
 
+-- unit
+record One : Set where
+  constructor void
+
 -- pairs
 record Σ (A : Set)(B : A → Set) : Set where
   constructor _,_
   field fst : A
         snd : B fst
+open Σ public
+
+_×_ : Set → Set → Set
+A × B = Σ A λ _ → B
+
+
+-- pre-image
+_-1 : ∀{Z Y : Set} → (Z → Y) → Y → Set
+(g -1) y = Σ _ λ z → g z ≡ y 
+
+{-
+fun : ∀{Y} → Y → (G : Y → Set) → Σ Y G
+fun y G = y , {!G y!}
+-}
