@@ -42,6 +42,27 @@ record FlatCwF : Set where
                                   (trans' (subst'-removable (Tm (Γ < (σ [ iden C ]⁺))) (sym' Ty-Comp) v) (cong' (λ σ → v {σ = σ}) Ty-Id)))
                           Cons-Id
 
-  E3-4-2 : ∀{Γ Δ Θ}{σ : Ty Θ}{f : Hom C Δ Θ}{g : Hom C Γ Δ} → q (comp C f g) σ ≅ comp C (q f σ)  (q g (σ [ f ]⁺))
-  E3-4-2 = {!!}
-
+  E3-4-2 : ∀{Γ Δ Θ}{σ : Ty Θ}{f : Hom C Δ Θ}{g : Hom C Γ Δ} → q (comp C f g) σ ≅ comp C (q f σ) (q g (σ [ f ]⁺))
+  E3-4-2 {Γ} {Δ} {Θ} {σ} {f} {g} = trans' (cong5' (λ Γ Δ σ → _<<_ {Γ} {Δ} {σ}) 
+                                                  (cong' (_<_ Γ) Ty-Comp)
+                                                  refl 
+                                                  refl 
+                                                  (trans' (sym' (≡-to-≅ (ass C))) 
+                                                          (trans' (cong2' (λ X → comp C {X} f) 
+                                                                          (cong' (_<_ Γ) Ty-Comp) 
+                                                                          (trans' (cong' (λ σ → comp C g (p σ)) Ty-Comp)
+                                                                                  (sym' Cons-L))) 
+                                                                  (≡-to-≅ (ass C)))) 
+                                                  (trans' (subst'-removable (Tm (Γ < (σ [ comp C f g ]⁺))) (sym' Ty-Comp) v) 
+                                                          (trans' (trans' (trans' (trans' (cong' (λ σ → v {Γ} {σ}) 
+                                                                                                 Ty-Comp) 
+                                                                                          (sym' (subst'-removable (Tm (Γ < ((σ [ f ]⁺) [ g ]⁺))) (sym' Ty-Comp) v)))
+                                                                                  (sym' Cons-R)) 
+                                                                          (cong5' (λ Γ Δ σ → _[_] {Γ} {Δ} {σ}) 
+                                                                                  refl 
+                                                                                  refl 
+                                                                                  (sym' Ty-Comp) 
+                                                                                  (sym' (subst'-removable (Tm (Δ < (σ [ f ]⁺))) (sym' Ty-Comp) v)) 
+                                                                                  refl))
+                                                                  (sym' (subst'-removable (Tm (Γ < ((σ [ f ]⁺) [ g ]⁺))) (sym' Ty-Comp) (subst' (Tm (Δ < (σ [ f ]⁺))) (sym' Ty-Comp) v [ comp C g (p ((σ [ f ]⁺) [ g ]⁺)) << subst' (Tm (Γ < ((σ [ f ]⁺) [ g ]⁺))) (sym' Ty-Comp) v ]))))))
+                                          (sym' Cons-Nat)
