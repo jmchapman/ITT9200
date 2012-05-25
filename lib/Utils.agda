@@ -5,8 +5,8 @@ module lib.Utils where
 id : {X : Set} → X → X
 id x = x
 
-_∘_ : {X Y Z : Set} → 
-      (Y → Z) → (X → Y) → X → Z
+_∘_ : {X : Set}{Y : X → Set}{Z : ∀ {x} → Y x → Set} → 
+      (∀{x} → (y : Y x) → Z y) → (g : ∀ x → Y x) → (∀ x → Z (g x)) 
 (f ∘ g) x = f (g x)
 
 -- equality
@@ -79,3 +79,7 @@ record Σ (A : Set)(B : A → Set) : Set where
   field fst : A
         snd : B fst
 
+open Σ public
+
+_×_ : Set → Set → Set
+A × B = Σ A λ _ → B

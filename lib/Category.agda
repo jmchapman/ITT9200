@@ -14,14 +14,16 @@ record Cat : Set where
                {f : Hom Y Z}{g : Hom X Y}{h : Hom W X} → 
                comp f (comp g h) ≡ comp (comp f g) h
 
-open Cat
+open Cat public
+
+--examples
 
 Sets : Cat
 Sets = record {
          Obj  = Set;
          Hom  = λ X Y → (X → Y) ;
          iden = id;
-         comp = _∘_;
+         comp = λ f g → f ∘ g;
          idl  = refl;
          idr  = refl;
          ass  = refl}
