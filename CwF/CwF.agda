@@ -18,11 +18,11 @@ record Cmpr {C : Cat}{F : Fun (C op) Fam}(Γ : Obj C)(σ : fst (OMap F Γ)) : Se
   _[_] : ∀{Γ Δ}{σ : Ty Δ} →  Tm Δ σ → (f : Hom C Γ Δ) → Tm Γ (σ [ f ]⁺)
   _[_] t f = snd (HMap F f) t
 
-  field Γ, : Obj C
-        p  : Hom C Γ, Γ
-        v  : Tm Γ, (σ [ p ]⁺)
+  field Γσ : Obj C
+        p  : Hom C Γσ Γ
+        v  : Tm Γσ (σ [ p ]⁺)
         _<<_ : ∀{Δ}(f : Hom C Δ Γ)(M : Tm Δ (σ [ f ]⁺)) → 
-               Σ (!Hom C Δ Γ,) 
+               Σ (!Hom C Δ Γσ) 
                  λ !<f,M> → (comp C p (fst !<f,M>) ≅ f) 
                             × 
                             (v [ fst !<f,M> ] ≅ M)

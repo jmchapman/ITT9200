@@ -14,6 +14,10 @@ record Pullback {C : Cat}{X Y Z : Obj C}
         law2 : ∀{P'}(p' : Hom C P' X)(q' : Hom C P' Z) → 
                comp C f p' ≡ comp C g q' → !Hom C P' P
 
+
+
+{-
 SetHasPullbacks : {X Y Z : Set}(f : X → Y)(g : Z → Y) → 
                   Pullback {Sets} f g
 SetHasPullbacks f g = {!!}
+-}
